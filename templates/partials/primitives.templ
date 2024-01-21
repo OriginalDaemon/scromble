@@ -1,0 +1,11 @@
+package partials
+
+templ PageHeading(name string) {
+    <h1>{ name }</h1>
+}
+
+templ ExampleButton() {
+    <div id="user-info">
+        <button hx-get="/get-info" hx-target="#user-info" hx-swap="outerHTML">Click me</button>
+    </div>
+}

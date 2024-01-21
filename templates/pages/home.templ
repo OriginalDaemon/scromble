@@ -1,0 +1,13 @@
+package pages
+
+import (
+    "github.com/originaldaemon/scromble/templates/shared"
+    "github.com/originaldaemon/scromble/templates/partials"
+)
+
+templ HomePage() {
+    @shared.Page("Home") {
+        @partials.PageHeading("Home")
+        @partials.ExampleButton()
+    }
+}

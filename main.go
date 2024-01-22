@@ -4,10 +4,13 @@
 package main
 
 import (
+	"math/rand"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/originaldaemon/scromble/templates/pages"
+	"github.com/originaldaemon/scromble/templates/partials"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -17,6 +20,15 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func getInfo(w http.ResponseWriter, r *http.Request) {
 	component := pages.HomePage()
+	component.Render(r.Context(), w)
+}
+
+func getServerStatus(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(time.Duration(time.Duration(rand.Intn(5)) * time.Second))
+	var component = partials.ServerStatusMessageOK()
+	if rand.Float32() < 0.5 {
+		component = partials.ServerStatusMessageBad()
+	}
 	component.Render(r.Context(), w)
 }
 
@@ -30,6 +42,7 @@ func main() {
 
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/get-info", getInfo)
+	mux.HandleFunc("/server-status", getServerStatus)
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
 	http.ListenAndServe(":"+port, mux)

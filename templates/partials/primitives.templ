@@ -9,3 +9,24 @@ templ ExampleButton() {
         <button hx-get="/get-info" hx-target="#user-info" hx-swap="outerHTML">Click me</button>
     </div>
 }
+
+templ ServerStatusContainer() {
+    <div>
+        <div id="server-status" hx-get="/server-status" hx-trigger="load, every 5s" hx-swap="innerHTML" hx-indicator="#indicator">
+            @ServerStatusMessagePending()
+        </div>
+        <img id="indicator" title="Indicator" class="htmx-indicator" src="/assets/images/loading/puff.svg"/>
+    </div>
+}
+
+templ ServerStatusMessageOK() {
+    <a>Server OK!</a>
+}
+
+templ ServerStatusMessageBad() {
+    <a>Server is having some issues!</a>
+}
+
+templ ServerStatusMessagePending() {
+    <a>Getting server status...</a>
+}

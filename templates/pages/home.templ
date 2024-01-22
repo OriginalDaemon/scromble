@@ -8,6 +8,7 @@ import (
 templ HomePage() {
     @shared.Page("Home") {
         @partials.PageHeading("Home")
+        @partials.ServerStatusContainer()
         @partials.ExampleButton()
     }
 }
